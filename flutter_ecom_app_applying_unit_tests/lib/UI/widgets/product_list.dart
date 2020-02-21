@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecom_app_applying_unit_tests/ui/widgets/product_card.dart';
 import 'package:flutter_ecom_app_applying_unit_tests/core/models/product.dart';
 import 'package:flutter_ecom_app_applying_unit_tests/core/viewmodels/cart_model.dart';
+import 'package:flutter_ecom_app_applying_unit_tests/ui/widgets/product_card.dart';
 
 class ProductList extends StatelessWidget {
   const ProductList(this.products, this.cartModel);
@@ -17,11 +17,10 @@ class ProductList extends StatelessWidget {
           children: <Widget>[
             Padding(
               child: InkWell(
-                child: ProductCard(products[index]),
-                onTap: () {
-                  // TODO 15: Call Add To Cart
-                }
-              ),
+                  child: ProductCard(products[index]),
+                  onTap: () {
+                    cartModel.addToCart(products[index]);
+                  }),
               padding: EdgeInsets.all(10.0),
             ),
           ],

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecom_app_applying_unit_tests/UI/app_theme.dart';
 import 'package:flutter_ecom_app_applying_unit_tests/UI/views/product_list_view.dart';
+import 'package:flutter_ecom_app_applying_unit_tests/helpers/dependency_assembly.dart';
 
 void main() {
-  // TODO 8: Setup Dependency Injection
-  runApp(flutter_ecom_app_applying_unit_testsApp());
+  setupDependencyAssembler();
+
+  runApp(ShopNBuyApp());
 }
 
-class flutter_ecom_app_applying_unit_testsApp extends StatelessWidget {
+class ShopNBuyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

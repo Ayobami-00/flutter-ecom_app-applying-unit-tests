@@ -1,8 +1,7 @@
 import 'dart:convert';
-
-import 'package:http/http.dart' as http;
 import 'package:flutter_ecom_app_applying_unit_tests/core/models/product.dart';
 import 'package:flutter_ecom_app_applying_unit_tests/helpers/constants.dart';
+import 'package:http/http.dart' as http;
 
 class API {
   static const endpoint = URL.ProductList;

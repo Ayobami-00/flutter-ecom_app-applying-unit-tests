@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecom_app_applying_unit_tests/UI/views/base_view.dart';
+import 'package:flutter_ecom_app_applying_unit_tests/UI/widgets/cart_count_badge.dart';
+import 'package:flutter_ecom_app_applying_unit_tests/core/enums/view_state.dart';
 import 'package:flutter_ecom_app_applying_unit_tests/core/viewmodels/cart_model.dart';
 import 'package:flutter_ecom_app_applying_unit_tests/core/viewmodels/product_list_model.dart';
 import 'package:flutter_ecom_app_applying_unit_tests/helpers/constants.dart';
+import 'package:flutter_ecom_app_applying_unit_tests/ui/widgets/product_list.dart';
+
+import 'cart_view.dart';
 
 class ProductListView extends StatelessWidget {
   Widget _buildCartButton(BuildContext context, CartModel cartModel) {
@@ -12,27 +17,35 @@ class ProductListView extends StatelessWidget {
             icon: Icon(Icons.shopping_cart),
             splashColor: Colors.blue,
             onPressed: () {
-              // TODO 21: Navigate to Cart Summary
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => CartView(model: cartModel)),
+              );
             }),
-        // TODO 16: Call Get CartSize
+        cartModel.cartSize != 0
+            ? CartCountBadge(cartModel.cartSize)
+            : Container()
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO 14: Wrap Widget with Cart Model
-    return BaseView<ProductListModel>(
-      // TODO 5: Call Get Products
-      onModelReady: (model) => {},
-      builder: (context, model, child) => Scaffold(
-          backgroundColor: Colors.grey.shade50,
-          appBar: AppBar(
-            title: Text(ViewTitle.ProductList),
-            actions: <Widget>[_buildCartButton(context, null)],
+    return BaseView<CartModel>(
+      onModelReady: (cartModel) => cartModel.getCart(),
+      builder: (context, cartModel, child) => BaseView<ProductListModel>(
+            onModelReady: (model) => model.getProducts(),
+            builder: (context, model, child) => Scaffold(
+                  backgroundColor: Colors.grey.shade50,
+                  appBar: AppBar(
+                    title: Text(ViewTitle.ProductList),
+                    actions: <Widget>[_buildCartButton(context, cartModel)],
+                  ),
+                  body: model.state == ViewState.Busy
+                      ? Center(child: CircularProgressIndicator())
+                      : ProductList(model.products, cartModel),
+                ),
           ),
-          // TODO 9: Check Model State and pass products data
-          body: Container()),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_ecom_app_applying_unit_tests/core/viewmodels/base_model.dart';
+import 'package:flutter_ecom_app_applying_unit_tests/helpers/dependency_assembly.dart';
 
 class BaseView<T extends BaseModel> extends StatefulWidget {
   final Widget Function(BuildContext context, T model, Widget child) builder;
@@ -13,8 +14,7 @@ class BaseView<T extends BaseModel> extends StatefulWidget {
 }
 
 class _BaseViewState<T extends BaseModel> extends State<BaseView<T>> {
-  // TODO 6: Use Dependency Injection
-  T model;
+  T model = dependencyAssembler<T>();
 
   @override
   void initState() {

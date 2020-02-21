@@ -4,6 +4,5 @@ class ViewTitle {
 }
 
 class URL {
-  // TODO 1: Place your own Firebase URL here
-  static const ProductList = "[YOUR OWN FIREBASE URL]";
+  static const ProductList = "https://ecommerce-eaa06.firebaseio.com/";
 }
